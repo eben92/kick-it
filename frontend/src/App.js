@@ -4,10 +4,10 @@ import { Navbar } from "./components";
 
 function App() {
   return (
-    <div className=''>
+    <div>
       <BrowserRouter>
         <Navbar />
-        <div>
+        <div className='p-11 '>
           <Routes>
             <Route path='/' element={<Home />} />
           </Routes>
