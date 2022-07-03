@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:4000/api/";
+const baseUrl = "https://mernapp233.herokuapp.com/api/";
 
 const restAgent = axios.create({
   baseURL: baseUrl,
@@ -17,4 +17,14 @@ const getAllWorkouts = async () => {
   return restAgent.get(`workouts`, config);
 };
 
-export { getAllWorkouts };
+const addWorkout = async (workout) => {
+  const config = getRequestCofig();
+  return restAgent.post(`workouts`, workout, config);
+};
+
+const deleteWorkout = async (id) => {
+  const config = getRequestCofig();
+  return restAgent.delete(`workouts/${id}`, config);
+};
+
+export { getAllWorkouts, addWorkout, deleteWorkout };

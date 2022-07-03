@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAllWorkouts } from "../../restServices";
+import { Form } from "../../components";
+import { getAllWorkouts, deleteWorkout } from "../../restServices";
 
 const Home = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -14,12 +15,24 @@ const Home = () => {
       const {
         data: { results },
       } = await getAllWorkouts();
-      console.log(results);
-      setWorkouts(results);
+      // console.log(results);
+      setWorkouts(results.reverse());
+
+      // const dd = [1,3,5];
+      // dd.reverse()
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
+    }
+  };
+  const handleDelete = async (itemId) => {
+    try {
+      await deleteWorkout(itemId);
+      getWorkouts();
+      // console.log(data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -37,9 +50,11 @@ const Home = () => {
             </p>
 
             <p>{item.createdAt.slice(0, 10)}</p>
+            <span onClick={() => handleDelete(item._id)}>delete</span>
           </div>
         ))}
       </div>
+      <Form getWorkouts={getWorkouts} />
     </div>
   );
 };
